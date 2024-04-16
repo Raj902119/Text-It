@@ -17,7 +17,6 @@ import { getSockets } from "./lib/helper.js";
 
 import { v2 as cloudinary } from "cloudinary";
 import cors from "cors"; // Importing CORS middleware
-import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 
 raj.config({
@@ -50,7 +49,7 @@ const app = express();
 const server = createServer(app);
 
 // Apply CORS middleware directly to Express app
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

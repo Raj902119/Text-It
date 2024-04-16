@@ -54,7 +54,6 @@ const uploadFilesToCloudinary = async (files=[]) => {
           },
           (error, result) => {
             if (error) return reject(error);
-            console.log("Cloudinary upload result:", result);
             resolve(result);
           }
         )
@@ -74,7 +73,6 @@ const uploadFilesToCloudinary = async (files=[]) => {
 }
 
 const deleteFilesFromCloudinary = async (public_ids) => {
-  console.log("s");
 }
 
 

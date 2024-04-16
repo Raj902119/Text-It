@@ -85,7 +85,6 @@ const getMyGroups = TryCatch(async(req,res,next) => {
 
 const addMembers = TryCatch(async (req, res, next) => {
     const { chatId, members } = req.body;
-    console.log(chatId, members);
 
     if (!members || members.length < 1) 
         return next(new ErrorHandler("Please provide members", 400));
@@ -182,9 +181,7 @@ const removeMembers = TryCatch(async(req,res,next) => {
 const leaveGroup = TryCatch(async(req,res,next) => {
 
     const chatId = req.params.id;
-    console.log(chatId);
     const chat = await Chat.findById(chatId);
-    console.log(chat);
 
     if(!chat) return next(new ErrorHandler("Chat not found",404));
 
@@ -356,10 +353,8 @@ const renameGroup = TryCatch(async(req,res,next) => {
 
 const deleteChat = TryCatch(async(req,res,next) => {
     const chatId = req.params.id;
-    console.log(chatId);
 
     const chat = await Chat.findById(chatId);
-    console.log(chat);
 
     if(!chat) return next(new ErrorHandler("Chat not Found",404));
 

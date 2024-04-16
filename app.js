@@ -33,7 +33,6 @@ const OnlineUsers = new Set();
 async function connectToDatabase() {
   try {
     await mongoose.connect(process.env.MONGODB_URL);
-    console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
     process.exit(1);
@@ -53,13 +52,11 @@ const server = createServer(app);
 const io = new Server(server, {
   cors: corsOptions,
 });
-
+app.use(cors(corsOptions));
 app.set("io",io);
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors(corsOptions)
-);
+
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRouter);
@@ -99,7 +96,6 @@ io.on("connection", (socket) => {
       chat: chatId,
     };
 
-    console.log("Emitting", messageForRealTime);
 
     const membersSocket = getSockets(members);
     io.to(membersSocket).emit(NEW_MESSAGE, {
@@ -111,13 +107,11 @@ io.on("connection", (socket) => {
     try {
       await Message.create(messageForDB);
     }catch (error) {
-      console.log(error);
     }
 
   });
 
    socket.on(START_TYPING, ({members, chatId}) => {
-    console.log("start-typing", chatId);
 
     const membersSocket = getSockets(members);
 
@@ -125,7 +119,6 @@ io.on("connection", (socket) => {
    });
 
    socket.on(STOP_TYPING, ({members, chatId}) => {
-    console.log("stop-typing", members, chatId);
 
     const membersSocket = getSockets(members);
 
@@ -149,7 +142,6 @@ io.on("connection", (socket) => {
    })
   // Corrected "disconnect" event handling
   socket.on("disconnect", () => {
-    console.log(`user disconnected ${socket.id}`);
     userSocketIDs.delete(user._id.toString());
   });
 });

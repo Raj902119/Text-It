@@ -1,7 +1,7 @@
 const corsOptions = {
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    methods: ["GET","POST","PUT","DELETE"],
+    'Access-Control-Allow-Origin': process.env.CLIENT_URL,
+    'Access-Control-Allow-Credentials': true,
+    'Access-Control-Allow-Methods': ["GET","POST","PUT","DELETE"],
 };
 
 const TEXTIT_TOKEN="Textit-token";

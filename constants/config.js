@@ -1,7 +1,6 @@
 const corsOptions = {
     origin: [
         "https://text-it-frontend.vercel.app",
-        process.env.CLIENT_URL,
     ],
     credentials: true,
     methods: ["GET","POST","PUT","DELETE"],

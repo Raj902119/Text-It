@@ -1,7 +1,6 @@
 const corsOptions = {
-    origin: "https://text-it-frontend.vercel.app",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "*",
+    methods: "GET,PUT,PATCH,POST,DELETE",
   };
   
   export { corsOptions };

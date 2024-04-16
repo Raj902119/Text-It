@@ -19,7 +19,6 @@ import cors from "cors";
 import {v2 as cloudinary} from "cloudinary";
 import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
-import { log } from "console";
 
 raj.config({
   path: "./raj.env",

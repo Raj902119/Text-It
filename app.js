@@ -55,7 +55,11 @@ const io = new Server(server, {
 app.set("io",io);
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 console.log(process.env.CLIENT_URL);
 
 app.use("/api/v1/user", userRoute);

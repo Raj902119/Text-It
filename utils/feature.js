@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import { v4 as uuid } from "uuid";
 import {v2 as cloudinary} from "cloudinary";
 import { getBase64, getSockets } from "../lib/helper.js";
@@ -75,5 +76,13 @@ const uploadFilesToCloudinary = async (files=[]) => {
 const deleteFilesFromCloudinary = async (public_ids) => {
 }
 
+const connectDB = (uri) => {
+  mongoose
+    .connect(uri, { dbName: "Textit" })
+    .then((data) => console.log(`Connected to DB: ${data.connection.host}`))
+    .catch((err) => {
+      throw err;
+    });
+};
 
-export {sendToken, cookieOptions, emitEvent, uploadFilesToCloudinary, deleteFilesFromCloudinary};
+export {connectDB, sendToken, cookieOptions, emitEvent, uploadFilesToCloudinary, deleteFilesFromCloudinary};

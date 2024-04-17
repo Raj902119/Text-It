@@ -48,6 +48,13 @@ cloudinary.config({
 const app = express();
 const server = createServer(app);
 
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  },
+});
 
 app.set("io",io);
 app.use(express.json());
@@ -58,14 +65,6 @@ app.use(cors({
   credentials: true,
 }));
 console.log(process.env.CLIENT_URL);
-
-const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  },
-});
 
 io.use((socket, next) => {
   // Set CORS headers

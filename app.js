@@ -3,7 +3,6 @@
 import raj from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import raj from "dotenv";
 import { errorMiddleware } from "./middlewares/error.js";
 import cookieParser from "cookie-parser";
 

@@ -25,7 +25,7 @@ raj.config({
 });
 
 const port = process.env.PORT || 3000; // Changed to uppercase "PORT"
-
+export const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
 export const userSocketIDs = new Map();
 const OnlineUsers = new Set();
 
@@ -150,5 +150,5 @@ io.on("connection", (socket) => {
 app.use(errorMiddleware);
 
 server.listen(port, () => {
-  console.log(`Server running on port ${port} in ${process.env.NODE_ENV} mode`);
+  console.log(`Server running on port ${port} in ${envMode} mode`);
 });

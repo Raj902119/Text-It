@@ -1,3 +1,4 @@
+import { envMode } from "../app";
 const errorMiddleware = (err, req, res, next) => {
 
     err.message ||= "Internal Server Error";
@@ -20,7 +21,7 @@ const errorMiddleware = (err, req, res, next) => {
       message: err.message,
     };
 
-    if(process.env.NODE_ENV==="DEVELOPMENT") {
+    if(envMode === "DEVELOPMENT") {
       response.error = err;
     }
     

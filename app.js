@@ -1,5 +1,3 @@
-
- import cookieParser from "cookie-parser";
 import raj from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
@@ -31,7 +29,7 @@ import { socketAuthenticator } from "./middlewares/auth.js";
    path: "./raj.env",
  });
 
- const port = 3000; // Changed to uppercase "PORT"
+ const port = process.env.PORT || 3000; // Changed to uppercase "PORT"
  export const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
 
 export const userSocketIDs = new Map();
@@ -53,7 +51,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
- const app = express();
+const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {  origin: process.env.CLIENT_URL,
@@ -73,13 +71,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
-console.log(process.env.CLIENT_URL);
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRouter);

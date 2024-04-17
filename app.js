@@ -1,28 +1,24 @@
+import cookieParser from "cookie-parser";
 import raj from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import { errorMiddleware } from "./middlewares/error.js";
-import cookieParser from "cookie-parser";
 
-import userRoute from "./routes/user.js";
-import chatRouter from "./routes/chat.js";
 import adminRouter from "./routes/admin.js";
+import chatRouter from "./routes/chat.js";
+import userRoute from "./routes/user.js";
 
 import { Server } from "socket.io";
 import { v4 as uuid } from "uuid";
-import { Message } from "./Models/message.js";
 import { NEW_MESSAGE, NEW_MESSAGE_ALERT, START_TYPING, STOP_TYPING } from "./constants/events.js";
 
 import { createServer } from "http";
-import { CHAT_JOINED, CHAT_LEAVED, NEW_MESSAGE, NEW_MESSAGE_ALERT, ONLINE_USERS, START_TYPING, STOP_TYPING } from "./constants/events.js";
-import { v4 as uuid } from "uuid";
 
 import { getSockets } from "./lib/helper.js";
 import { Message } from "./Models/message.js";
 
+import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
-import {v2 as cloudinary} from "cloudinary";
-import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 
  raj.config({

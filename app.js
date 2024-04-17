@@ -1,22 +1,23 @@
-import cookieParser from "cookie-parser";
-import raj from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import raj from "dotenv";
 import { errorMiddleware } from "./middlewares/error.js";
+import cookieParser from "cookie-parser";
 
-import adminRouter from "./routes/admin.js";
-import chatRouter from "./routes/chat.js";
 import userRoute from "./routes/user.js";
+import chatRouter from "./routes/chat.js";
+import adminRouter from "./routes/admin.js";
 
-import { createServer } from "http";
 import { Server } from "socket.io";
-import { v4 as uuid } from "uuid";
-import { Message } from "./Models/message.js";
+import { createServer } from "http";
 import { CHAT_JOINED, CHAT_LEAVED, NEW_MESSAGE, NEW_MESSAGE_ALERT, ONLINE_USERS, START_TYPING, STOP_TYPING } from "./constants/events.js";
+import { v4 as uuid } from "uuid";
 import { getSockets } from "./lib/helper.js";
+import { Message } from "./Models/message.js";
 
-import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
+import {v2 as cloudinary} from "cloudinary";
+import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 
 raj.config({
@@ -47,7 +48,6 @@ cloudinary.config({
 
 const app = express();
 const server = createServer(app);
-
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
@@ -65,15 +65,6 @@ app.use(cors({
   credentials: true,
 }));
 console.log(process.env.CLIENT_URL);
-
-io.use((socket, next) => {
-  // Set CORS headers
-  socket.request.res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
-  socket.request.res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  socket.request.res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  socket.request.res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRouter);

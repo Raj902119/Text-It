@@ -56,6 +56,7 @@ app.set("io",io);
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+console.log(process.env.CLIENT_URL);
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRouter);

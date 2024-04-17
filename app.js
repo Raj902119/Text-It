@@ -1,22 +1,34 @@
+<<<<<<< HEAD
  import cookieParser from "cookie-parser";
 import raj from "dotenv";
+=======
+>>>>>>> 05e80179ea527579ef4c289523637b2f12e41af0
 import express from "express";
 import mongoose from "mongoose";
+import raj from "dotenv";
 import { errorMiddleware } from "./middlewares/error.js";
+import cookieParser from "cookie-parser";
 
-import adminRouter from "./routes/admin.js";
-import chatRouter from "./routes/chat.js";
 import userRoute from "./routes/user.js";
+import chatRouter from "./routes/chat.js";
+import adminRouter from "./routes/admin.js";
 
-import { createServer } from "http";
 import { Server } from "socket.io";
+<<<<<<< HEAD
 import { v4 as uuid } from "uuid";
 import { Message } from "./Models/message.js";
 import { NEW_MESSAGE, NEW_MESSAGE_ALERT, START_TYPING, STOP_TYPING } from "./constants/events.js";
+=======
+import { createServer } from "http";
+import { CHAT_JOINED, CHAT_LEAVED, NEW_MESSAGE, NEW_MESSAGE_ALERT, ONLINE_USERS, START_TYPING, STOP_TYPING } from "./constants/events.js";
+import { v4 as uuid } from "uuid";
+>>>>>>> 05e80179ea527579ef4c289523637b2f12e41af0
 import { getSockets } from "./lib/helper.js";
+import { Message } from "./Models/message.js";
 
-import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
+import {v2 as cloudinary} from "cloudinary";
+import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 
  raj.config({
@@ -57,6 +69,7 @@ const io = new Server(server, {
 app.set("io",io);
 app.use(express.json());
 app.use(cookieParser());
+<<<<<<< HEAD
 app.use(
   cors({  origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -64,6 +77,14 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+=======
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+console.log(process.env.CLIENT_URL);
+>>>>>>> 05e80179ea527579ef4c289523637b2f12e41af0
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRouter);
